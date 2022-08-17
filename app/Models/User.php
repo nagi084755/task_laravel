@@ -60,7 +60,7 @@ class User extends Authenticatable
   //--------------------------------------------------------------------
   // 名前を更新する
   //--------------------------------------------------------------------
-  public static function nameUpdate($newName)
+  public static function nameUpdate(string $newName)
   {
     DB::transaction(function () use ($newName) {
       $userId = Auth::user()->user_id;
@@ -75,7 +75,7 @@ class User extends Authenticatable
   //--------------------------------------------------------------------
   // パスワードを更新する
   //--------------------------------------------------------------------
-  public static function passwordUpdate($newPass)
+  public static function passwordUpdate(string $newPass)
   {
     DB::transaction(function () use ($newPass) {
       $userId = Auth::user()->user_id;

@@ -20,7 +20,7 @@ class Article extends Model
   //--------------------------------------------------------------------
   // 記事データを投稿
   //--------------------------------------------------------------------
-  public static function postProcess($dataList)
+  public static function postProcess(array $dataList)
   {
     DB::transaction(function () use ($dataList) {
       $user_id = Auth::user()->user_id;
@@ -36,7 +36,7 @@ class Article extends Model
   //--------------------------------------------------------------------
   // 記事データを更新
   //--------------------------------------------------------------------
-  public static function updateProcess($dataList)
+  public static function updateProcess(array $dataList)
   {
     DB::transaction(function () use ($dataList) {
       Article::where('id', '=', $dataList['article_id'])
@@ -51,7 +51,7 @@ class Article extends Model
   //--------------------------------------------------------------------
   // 記事データを削除
   //--------------------------------------------------------------------
-  public static function deleteProcess($dataList)
+  public static function deleteProcess(array $dataList)
   {
     DB::transaction(function () use ($dataList) {
       Article::where('id', '=', $dataList['article_id'])->delete();
@@ -82,7 +82,7 @@ class Article extends Model
   //----------------------------------------------------
   // 検索された全ての投稿記事を取得
   //----------------------------------------------------
-  public static function searchArticles($searchKey)
+  public static function searchArticles(string $searchKey)
   {
     $articleList = Article::whereNull('deleted_at')
                             ->where('title', 'LIKE', "%{$searchKey}%")
@@ -96,7 +96,7 @@ class Article extends Model
   //----------------------------------------------------
   // リクエストされた記事を取得
   //----------------------------------------------------
-  public static function getProcess($article_id)
+  public static function getProcess(int $article_id)
   {
     $articleData = Article::join('users', 'articles.user_id', '=', 'users.user_id')
                             ->whereNull('articles.deleted_at')

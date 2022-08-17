@@ -19,7 +19,7 @@ class Comment extends Model
   //--------------------------------------------------------------------
   // コメントデータをインサート
   //--------------------------------------------------------------------
-  public static function postProcess($dataList)
+  public static function postProcess(array $dataList)
   {
     DB::transaction(function () use ($dataList) {
       $user_id = Auth::user()->user_id;
@@ -36,7 +36,7 @@ class Comment extends Model
   //----------------------------------------------------
   // コメントを取得
   //----------------------------------------------------
-  public static function getProcess($article_id)
+  public static function getProcess(int $article_id)
   {
     $commentData = Comment::select('comments.id','comments.user_id', 'comments.content', 'comments.created_at', 'users.name')
       ->join('users', 'comments.user_id', '=', 'users.user_id')
@@ -51,7 +51,7 @@ class Comment extends Model
   //--------------------------------------------------------------------
   // コメントを更新
   //--------------------------------------------------------------------
-  public static function updateProcess($dataList)
+  public static function updateProcess(array $dataList)
   {
     DB::transaction(function () use ($dataList) {
       Comment::where('id', '=', $dataList['comment_id'])
@@ -67,7 +67,7 @@ class Comment extends Model
   //--------------------------------------------------------------------
   // コメントを削除
   //--------------------------------------------------------------------
-  public static function deleteProcess($dataList)
+  public static function deleteProcess(array $dataList)
   {
     DB::transaction(function () use ($dataList) {
       Comment::where('id', '=', $dataList['comment_id'])

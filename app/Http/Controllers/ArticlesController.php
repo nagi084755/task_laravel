@@ -12,7 +12,7 @@ class ArticlesController extends Controller
   //----------------------------------------------------
   //　記事一覧ページ
   //----------------------------------------------------
-  public function listShow(Request $request)
+  public function listShow()
   {
     $articleList = Article::getArticleAll();
     return view('article.articleList', compact('articleList'));
@@ -33,7 +33,7 @@ class ArticlesController extends Controller
   //----------------------------------------------------
   //　投稿詳細ページ
   //----------------------------------------------------
-  public function ditaile(Request $request, $id)
+  public function ditaile(Request $request, int $id)
   {
     if($request->input('back') === 'back'){
       return redirect()->route('postArticle.ditaile.post', ['id' => $id])->withInput();

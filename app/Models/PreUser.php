@@ -13,7 +13,7 @@ class PreUser extends Model
   //--------------------------------------------------------------------
   // リンククリック時に仮登録されたデータと一致したらtrueを返す
   //--------------------------------------------------------------------
-  public static function checkPremember($preEmail, $preToken)
+  public static function checkPremember(string $preEmail, string $preToken)
   {
     $bool = PreUser::where('email', '=', $preEmail)->where('token', '=', $preToken)->exists();
     return $bool;
@@ -24,7 +24,7 @@ class PreUser extends Model
   //--------------------------------------------------------------------
   // 本登録完了時に仮登録を削除
   //--------------------------------------------------------------------
-  public static function deletePremember($data)
+  public static function deletePremember(string $data)
   {
     PreUser::where('email', $data)->delete();
   }
