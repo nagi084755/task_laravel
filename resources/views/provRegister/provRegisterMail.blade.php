@@ -1,7 +1,7 @@
 仮登録のご申込、ありがとうございます。
 下のリンクにアクセスして会員登録を完了してください。
 
-http://{{$server}}/register?email={{$email}}&token={{$token}}
+http://{{$server}}/register/input?email={{$email}}&token={{$token}}
 
 
 --

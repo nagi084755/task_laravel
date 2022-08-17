@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ class User extends Authenticatable
    * @var array
    */
   protected $fillable = [
-    'user_id',  'name', 'email', 'password', 'role'
+  'id', 'user_id',  'name', 'email', 'password', 'role'
   ];
 
   /**
@@ -44,9 +45,9 @@ class User extends Authenticatable
   ];
 
 
-  public function article()
+  public function articles()
   {
-    return $this->hasOne(Article::class);
+    return $this->hasMany(Article::class, 'user_id', 'user_id');
   }
 
 
@@ -60,7 +61,7 @@ class User extends Authenticatable
       'name' => $data['name'],
       'email' => $data['email'],
       'password' => Hash::make($data['password']),
-      'role' => 2,
+      'role' => 'member',
     ]);
   }
 

@@ -95,4 +95,4 @@ Route::prefix('editComment')->group(function() {
 
 Route::get('error/{code}', function ($code) {
   abort($code);
-});
+})->name('errorPage');

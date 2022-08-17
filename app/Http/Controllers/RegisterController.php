@@ -32,6 +32,8 @@ class RegisterController extends Controller
     $preToken = $request->get('token');
     if (PreUser::checkPremember($preEmail, $preToken)) {
       return view('auth.register');
+    } else {
+      return redirect()->route('errorPage', ['code' => 403]);
     }
   }
 
