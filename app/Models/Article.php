@@ -7,13 +7,20 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use  Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
 
 class Article extends Model
 {
   use SoftDeletes;
-  
+
   protected $table = 'articles';
   protected $fillable = ['id', 'user_id', 'title', 'content', 'created_at', 'updated_at', 'deleted_at'];
+
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
 
 
 
@@ -29,7 +36,7 @@ class Article extends Model
         'title' => $dataList['title'],
         'content' => $dataList['content'],
       ]);
-  });
+    });
   }
 
 
@@ -40,11 +47,11 @@ class Article extends Model
   {
     DB::transaction(function () use ($dataList) {
       Article::where('id', '=', $dataList['article_id'])
-      ->update([
-        'title' => $dataList['title'],
-        'content' => $dataList['content'],
-      ]);
-  });
+        ->update([
+          'title' => $dataList['title'],
+          'content' => $dataList['content'],
+        ]);
+    });
   }
 
 
@@ -55,7 +62,7 @@ class Article extends Model
   {
     DB::transaction(function () use ($dataList) {
       Article::where('id', '=', $dataList['article_id'])->delete();
-  });
+    });
   }
 
 
@@ -85,9 +92,9 @@ class Article extends Model
   public static function searchArticles(string $searchKey)
   {
     $articleList = Article::whereNull('deleted_at')
-                            ->where('title', 'LIKE', "%{$searchKey}%")
-                            ->orWhere('content', 'LIKE', "%{$searchKey}%")
-                            ->latest()->paginate(10);
+      ->where('title', 'LIKE', "%{$searchKey}%")
+      ->orWhere('content', 'LIKE', "%{$searchKey}%")
+      ->latest()->paginate(10);
     return $articleList;
   }
 
@@ -99,9 +106,9 @@ class Article extends Model
   public static function getProcess(int $article_id)
   {
     $articleData = Article::join('users', 'articles.user_id', '=', 'users.user_id')
-                            ->whereNull('articles.deleted_at')
-                            ->where('articles.id', '=', $article_id)
-                            ->get()->all();
+      ->whereNull('articles.deleted_at')
+      ->where('articles.id', '=', $article_id)
+      ->get()->all();
     return $articleData;
   }
 
@@ -115,7 +122,7 @@ class Article extends Model
     $carbon = Carbon::now();
     $thisMonth = $carbon->month;
     $count = Article::whereMonth('created_at', $thisMonth)->count();
-    
+
     return $count;
   }
 }

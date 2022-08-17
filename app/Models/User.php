@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use App\Models\Article;
+use App\Models\Comment;
 
 class User extends Authenticatable
 {
@@ -40,6 +42,13 @@ class User extends Authenticatable
   protected $casts = [
     'email_verified_at' => 'datetime',
   ];
+
+
+  public function article()
+  {
+    return $this->hasOne(Article::class);
+  }
+
 
   //--------------------------------------------------------------------
   // 会員登録処理
@@ -94,7 +103,7 @@ class User extends Authenticatable
     $carbon = Carbon::now();
     $thisMonth = $carbon->month;
     $count = User::whereMonth('created_at', $thisMonth)->count();
-    
+
     return $count;
   }
 }
