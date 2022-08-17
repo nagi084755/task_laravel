@@ -53,8 +53,8 @@ Route::prefix('mypage')->group(function () {
 Route::prefix('article')->group(function () {
   Route::get('/list', 'ArticlesController@listShow')->name('articleList');
   Route::post('/searchList', 'ArticlesController@searchListShow')->name('searchList');
-  Route::get('/ditaile/page_id={id}', 'ArticlesController@ditaile')->name('postArticle.ditaile');
-  Route::post('/ditaile/page_id={id}', 'ArticlesController@ditaile')->name('postArticle.ditaile.post');
+  Route::get('/detail/page_id={id}', 'ArticlesController@detail')->name('postArticle.detail');
+  Route::post('/detail/page_id={id}', 'ArticlesController@detail')->name('postArticle.detail.post');
 });
 
 

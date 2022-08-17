@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use  Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
+use App\Models\Article;
 
 class Comment extends Model
 {
@@ -13,6 +15,16 @@ class Comment extends Model
   
   protected $table = 'comments';
   protected $fillable = ['id', 'user_id', 'article_id', 'content', 'created_at', 'updated_at', 'deleted_at'];
+
+
+  public function user() {
+    return $this->belongsTo(User::class, 'user_id', 'user_id');
+  }
+
+
+  public function article() {
+    return $this->belongsTo(Article::class, 'user_id', 'user_id')->orderBy('created_at', 'desc');
+  }
 
 
 
@@ -38,11 +50,7 @@ class Comment extends Model
   //----------------------------------------------------
   public static function getProcess(int $article_id)
   {
-    $commentData = Comment::select('comments.id','comments.user_id', 'comments.content', 'comments.created_at', 'users.name')
-      ->join('users', 'comments.user_id', '=', 'users.user_id')
-      ->whereNull('comments.deleted_at')
-      ->where('comments.article_id', '=', $article_id)->latest()
-      ->get();
+    $commentData = Comment::with('user')->where('article_id', '=', $article_id)->get();   
     return $commentData;
   }
 

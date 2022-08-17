@@ -47,7 +47,13 @@ class User extends Authenticatable
 
   public function articles()
   {
-    return $this->hasMany(Article::class, 'user_id', 'user_id');
+    return $this->hasMany(Article::class, 'user_id', 'user_id')->orderBy('created_at', 'desc');
+  }
+
+
+  public function comments()
+  {
+    return $this->hasMany(Comment::class, 'user_id', 'user_id')->orderBy('created_at', 'desc');
   }
 
 

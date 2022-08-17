@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use  Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
+use App\Models\Comment;
 
 class Article extends Model
 {
@@ -20,6 +21,11 @@ class Article extends Model
   public function user()
   {
     return $this->belongsTo(User::class, 'user_id', 'user_id');
+  }
+
+  public function comments()
+  {
+    return $this->hasMany(Comment::class, 'user_id', 'user_id')->orderBy('created_at', 'desc');
   }
 
 
@@ -71,7 +77,7 @@ class Article extends Model
   //----------------------------------------------------
   public static function getLatestId()
   {
-    $lastId = Article::whereNull('deleted_at')->latest()->limit(1)->value('id');
+    $lastId = Article::latest()->limit(1)->value('id');
     return $lastId;
   }
 
@@ -81,7 +87,7 @@ class Article extends Model
   //----------------------------------------------------
   public static function getArticleAll()
   {
-    $articleList = Article::whereNull('deleted_at')->latest()->paginate(10);
+    $articleList = Article::latest()->paginate(10);
     return $articleList;
   }
 
@@ -91,8 +97,7 @@ class Article extends Model
   //----------------------------------------------------
   public static function searchArticles(string $searchKey)
   {
-    $articleList = Article::whereNull('deleted_at')
-      ->where('title', 'LIKE', "%{$searchKey}%")
+    $articleList = Article::where('title', 'LIKE', "%{$searchKey}%")
       ->orWhere('content', 'LIKE', "%{$searchKey}%")
       ->latest()->paginate(10);
     return $articleList;
@@ -105,10 +110,7 @@ class Article extends Model
   //----------------------------------------------------
   public static function getProcess(int $article_id)
   {
-    $articleData = Article::join('users', 'articles.user_id', '=', 'users.user_id')
-      ->whereNull('articles.deleted_at')
-      ->where('articles.id', '=', $article_id)
-      ->get()->all();
+    $articleData = Article::with('user')->find($article_id);    
     return $articleData;
   }
 

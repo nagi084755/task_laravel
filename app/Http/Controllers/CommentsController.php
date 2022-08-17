@@ -18,7 +18,7 @@ class CommentsController extends Controller
     $article_id = $request->article_id;
     $comment = $request->comment;
 
-    $cancelRoute = route('postArticle.ditaile.post', ['id' => $request->article_id]);
+    $cancelRoute = route('postArticle.detail.post', ['id' => $request->article_id]);
     $postRoute = route('postComment.comp');
     return view('post.postConfirm', compact('content', 'cancelRoute', 'postRoute', 'comment', 'article_id'));
   }
@@ -89,7 +89,7 @@ class CommentsController extends Controller
   public function delete(Request $request)
   {
     $article_id = $request->article_id;
-    $pageLink = route('postArticle.ditaile', ['id' => $article_id]);
+    $pageLink = route('postArticle.detail', ['id' => $article_id]);
     $linkText = "投稿ページに戻る";
 
     Comment::deleteProcess($request->all());
