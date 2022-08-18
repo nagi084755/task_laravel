@@ -25,6 +25,13 @@ Route::post('/', 'BaseController@topPageShow');
 Route::get('/topPage', 'BaseController@topPageShow')->name('topPage');
 
 
+Route::prefix('admin')->group(function () {
+  Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+  Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login');
+  Route::post('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+  Route::get('/home', 'Admin\AdminController@index')->name('admin.index');
+});
+
 Route::prefix('provRegister')->group(function () {
   Route::get('/input', 'PreRegisterController@input')->name('provRegister.input');
   Route::post('/input', 'PreRegisterController@input');
@@ -35,7 +42,9 @@ Route::prefix('provRegister')->group(function () {
 
 Route::prefix('register')->group(function () {
   Route::get('/input', 'RegisterController@input')->name('register.input');
-  Route::post('/input', function () {return view('auth.register');})->name('registerRedirect');
+  Route::post('/input', function () {
+    return view('auth.register');
+  })->name('registerRedirect');
   Route::post('/confirm', 'RegisterController@confirm')->name('register.conf');
   Route::post('/completion', 'RegisterController@completion')->name('register.comp');
 });
@@ -58,7 +67,7 @@ Route::prefix('article')->group(function () {
 });
 
 
-Route::prefix('postArticle')->group(function() {
+Route::prefix('postArticle')->group(function () {
   Route::get('/post', 'ArticlesController@post')->name('postArticle');
   Route::post('/post', 'ArticlesController@post')->name('postArticle.back');
   Route::post('/confirm', 'ArticlesController@confirm')->name('postArticle.conf');
@@ -66,7 +75,7 @@ Route::prefix('postArticle')->group(function() {
 });
 
 
-Route::prefix('editArticle')->group(function() {
+Route::prefix('editArticle')->group(function () {
   Route::get('/edit', 'ArticlesController@edit')->name('editArticle');
   Route::post('/edit', 'ArticlesController@edit')->name('editArticle.back');
   Route::post('/confirm', 'ArticlesController@editConfirm')->name('editArticle.conf');
@@ -79,13 +88,13 @@ Route::post('/deleteComment/completion', 'CommentsController@delete')->name('del
 
 
 
-Route::prefix('comment')->group(function() {
+Route::prefix('comment')->group(function () {
   Route::post('/confirm', 'CommentsController@confirm')->name('postComment.conf');
   Route::post('/completion', 'CommentsController@completion')->name('postComment.comp');
 });
 
 
-Route::prefix('editComment')->group(function() {
+Route::prefix('editComment')->group(function () {
   Route::get('/edit', 'CommentsController@edit')->name('editComment');
   Route::post('/edit', 'CommentsController@edit')->name('editComment.back');
   Route::post('/confirm', 'CommentsController@editConfirm')->name('editComment.conf');
