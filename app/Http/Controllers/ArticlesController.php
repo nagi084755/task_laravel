@@ -9,6 +9,12 @@ use App\Models\Comment;
 
 class ArticlesController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->middleware('users');
+  }
+
   //----------------------------------------------------
   //　記事一覧ページ
   //----------------------------------------------------
@@ -35,9 +41,9 @@ class ArticlesController extends Controller
   //----------------------------------------------------
   public function detail(Request $request, int $id)
   {
-    if($request->input('back') === 'back'){
+    if ($request->input('back') === 'back') {
       return redirect()->route('postArticle.detail.post', ['id' => $id])->withInput();
-  }
+    }
 
     $articleData = Article::getProcess($id);
     $commentData = Comment::getProcess($id);
@@ -51,9 +57,9 @@ class ArticlesController extends Controller
   //----------------------------------------------------
   public function post(Request $request)
   {
-    if($request->input('back') === 'back'){
+    if ($request->input('back') === 'back') {
       return redirect('/postArticle/post')->withInput();
-  }
+    }
     return view('post.postPage');
   }
 
@@ -91,11 +97,11 @@ class ArticlesController extends Controller
   {
     $article_id = $request->article_id;
     $confRoute = route('editArticle.conf');
-    
 
-    if($request->input('back') === 'back'){
+
+    if ($request->input('back') === 'back') {
       return redirect()->route('editArticle', ['article_id' => $article_id])->withInput();
-  }
+    }
 
     return view('edit.editPage', compact('article_id', 'confRoute'));
   }

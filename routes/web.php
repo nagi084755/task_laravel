@@ -18,19 +18,11 @@ use App\Http\Controllers\RegisterController;
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'BaseController@topPageShow');
 Route::post('/', 'BaseController@topPageShow');
 Route::get('/topPage', 'BaseController@topPageShow')->name('topPage');
 
-
-Route::prefix('admin')->group(function () {
-  Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
-  Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login');
-  Route::post('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
-  Route::get('/home', 'Admin\AdminController@index')->name('admin.index');
-});
 
 Route::prefix('provRegister')->group(function () {
   Route::get('/input', 'PreRegisterController@input')->name('provRegister.input');

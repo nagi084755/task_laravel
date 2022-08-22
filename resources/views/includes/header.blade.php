@@ -42,19 +42,10 @@
 
                     </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}"></a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}"></a>
-                                </li>
-                            @endif
-                        @else
+
+                    @auth
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -77,8 +68,10 @@
                                     </form>
                                 </div>
                             </li>
-                        @endguest
-                    </ul>
+                        </ul>
+                    @endauth
+
+
                 </div>
             </div>
         </nav>

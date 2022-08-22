@@ -12,7 +12,7 @@ class MemberController extends Controller
 {
   public function __construct()
   {
-      $this->middleware('users');
+    $this->middleware('users');
   }
 
 

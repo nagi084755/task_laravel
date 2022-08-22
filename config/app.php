@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
         App\Providers\CustomServiceProvider::class,
+        App\Providers\AdminServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -227,6 +228,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'AdminService' => App\Facades\AdminService::class,
 
     ],
 

@@ -7,10 +7,11 @@
 
   <div class="exportWrap">
     <h3>エクスポート</h3>
-    <form class="adminForm" action="" method="post">
-      <input style="width: 120px;" type="date" name="first" max="">
+    <form class="adminForm" action="{{ route('admin.articlesExport') }}" method="post">
+      @csrf
+      <input style="width: 120px;" type="date" name="first" max="{{ date("Y-m-d") }}">
       <span>~</span>
-      <input style="width: 120px;" type="date" name="last" max="">
+      <input style="width: 120px;" type="date" name="last" max="{{ date("Y-m-d") }}">
       <br>
       <h6>※日付を指定しない場合、全てのデータがエクスポートされます</h6>
       <input type="submit" class="downloadBtn" value="CSVエクスポート">
@@ -34,7 +35,7 @@
   </div>
 
 
-  <p class="topLink"><a href="adminPage">管理者ページに戻る</a></p>
+  <p class="topLink"><a href="{{ route('admin.index') }}">管理者ページに戻る</a></p>
 </div>
 
 
