@@ -15,6 +15,7 @@ Route::post('/userExport', 'Admin\AdminController@usersExport')->name('admin.use
 Route::post('/userImport', 'Admin\AdminController@usersImport')->name('admin.usersImport');
 Route::get('/articlesData', 'Admin\AdminController@articlesData')->name('admin.articlesData');
 Route::post('/articlesExport', 'Admin\AdminController@articlesExport')->name('admin.articlesExport');
+Route::post('/articlesImport', 'Admin\AdminController@articlesImport')->name('admin.articlesImport');
 Route::get('/errorPage', 'Admin\AdminController@error')->name('admin.error');
 Route::get('/completion', 'Admin\AdminController@completion')->name('admin.completion');
 

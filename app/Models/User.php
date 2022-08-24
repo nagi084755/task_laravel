@@ -23,7 +23,7 @@ class User extends Authenticatable
    * @var array
    */
   protected $fillable = [
-  'id', 'user_id',  'name', 'email', 'password', 'role', 'created_at'
+    'id', 'user_id',  'name', 'email', 'password', 'role', 'created_at'
   ];
 
 
@@ -45,15 +45,13 @@ class User extends Authenticatable
   //--------------------------------------------------------------------
   public static function registration(array $data)
   {
-    DB::transaction(function () use ($data) {
-      return User::create([
-        'user_id' => Str::random(64),
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'password' => Hash::make($data['password']),
-        'role' => 'MEMBER',
-      ]);
-    });
+    return User::create([
+      'user_id' => Str::random(64),
+      'name' => $data['name'],
+      'email' => $data['email'],
+      'password' => Hash::make($data['password']),
+      'role' => 'MEMBER',
+    ]);
   }
 
 
@@ -97,26 +95,5 @@ class User extends Authenticatable
     $count = User::whereMonth('created_at', $thisMonth)->count();
 
     return $count;
-  }
-
-
-  //----------------------------------------------------
-  // csvのインポート処理
-  //----------------------------------------------------
-  public static function inport(array $data) {
-    DB::transaction(function () use ($data) {
-      foreach($data as $row) {
-        User::insert([
-          'user_id' => $row['user_id'],
-          'name' => $row['name'],
-          'password' => $row['password'],
-          'email' => $row['email'],
-          'role' => $row['role'],
-          'created_at' => $row['created_at'],
-          'updated_at' => $row['updated_at'],
-          'deleted_at' => $row['deleted_at']
-        ]);
-      }
-    });
   }
 }
