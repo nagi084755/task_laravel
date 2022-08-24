@@ -56,18 +56,18 @@ class AdminService
 
     foreach ($collection->all() as $data) {
 
-      // $validator = Validator::make($data, [
-      //   0 => ['required'],
-      //   1 => ['required', 'alpha_num', 'min:8'],
-      //   2 => ['required', 'alpha_num', 'min:10'],
-      //   3 => ['required', 'email:strict,dns', 'max:255'],
-      //   4 => ['required'],
-      //   5 => ['required']
-      // ]);
+      $validator = Validator::make($data, [
+        0 => ['required'],
+        1 => ['required', 'alpha_num', 'min:8'],
+        2 => ['required', 'alpha_num', 'min:10'],
+        3 => ['required', 'email:strict,dns', 'max:255'],
+        4 => ['required'],
+        5 => ['required']
+      ]);
 
-      // if ($validator->fails()) {
-      //   return false;
-      // }
+      if ($validator->fails()) {
+        return false;
+      }
 
       $dataList = [
         'user_id' => mb_convert_encoding($data[0], 'UTF-8', 'SJIS'),

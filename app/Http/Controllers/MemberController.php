@@ -26,7 +26,7 @@ class MemberController extends Controller
   //--------------------------------------------------------------------
   // 名前変更ページ
   //--------------------------------------------------------------------
-  public function nameChange(Request $request)
+  public function nameChange()
   {
     return view('member.nameChange');
   }
@@ -36,7 +36,7 @@ class MemberController extends Controller
   //--------------------------------------------------------------------
   // パスワード変更ページ
   //--------------------------------------------------------------------
-  public function passwordChange(Request $request)
+  public function passwordChange()
   {
     return view('member.passwordChange');
   }
