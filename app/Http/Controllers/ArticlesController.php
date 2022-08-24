@@ -10,11 +10,6 @@ use App\Models\Comment;
 class ArticlesController extends Controller
 {
 
-  public function __construct()
-  {
-    $this->middleware('users');
-  }
-
   //----------------------------------------------------
   //　記事一覧ページ
   //----------------------------------------------------

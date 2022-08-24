@@ -41,7 +41,7 @@ window.onload = () => {
       });
     }
     confBtn.addEventListener('click', () => {
-      loginId = inputList[0].value;
+      email = inputList[0].value;
       pass = inputList[1].value;
       userName = inputList[3].value;
     });

@@ -1,4 +1,4 @@
-@extends('includes.header')
+@extends('includes.adminHeader')
 @section('content')
     <div class="adminPageCont">
         <h2 class="adminPageTtl">ユーザーデータ管理ページ</h2>
@@ -19,10 +19,9 @@
 
         <div class="importWrap">
             <h3>インポート</h3>
-            <form action="" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="func" value="import">
-                <input type="hidden" name="type" value="user">
-                <input id="js_importFile" type="file" id="csvFile" name="csvFile" accept=".csv">
+            <form action="{{ route('admin.usersImport') }}" method="post" enctype="multipart/form-data">
+              @csrf
+                <input id="js_importFile" type="file" id="csvFile" name="usersCsv" accept=".csv">
                 <p class="errorTxt"></p>
                 <br>
                 <br>

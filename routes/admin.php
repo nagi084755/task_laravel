@@ -11,13 +11,14 @@ Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login');
 Route::post('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 Route::get('/home', 'Admin\AdminController@index')->name('admin.index');
 Route::get('/userData', 'Admin\AdminController@usersData')->name('admin.usersData');
-Route::post('/userData', 'Admin\AdminController@usersExport')->name('admin.usersExport');
+Route::post('/userExport', 'Admin\AdminController@usersExport')->name('admin.usersExport');
+Route::post('/userImport', 'Admin\AdminController@usersImport')->name('admin.usersImport');
 Route::get('/articlesData', 'Admin\AdminController@articlesData')->name('admin.articlesData');
-Route::post('/articlesData', 'Admin\AdminController@articlesExport')->name('admin.articlesExport');
+Route::post('/articlesExport', 'Admin\AdminController@articlesExport')->name('admin.articlesExport');
+Route::get('/errorPage', 'Admin\AdminController@error')->name('admin.error');
+Route::get('/completion', 'Admin\AdminController@completion')->name('admin.completion');
 
 
-
-Route::group(['middleware' => 'auth:admin'], function () {
 
   Route::get('/', 'BaseController@topPageShow');
   Route::post('/', 'BaseController@topPageShow');
@@ -79,4 +80,3 @@ Route::group(['middleware' => 'auth:admin'], function () {
   Route::get('error/{code}', function ($code) {
     abort($code);
   })->name('errorPage');
-});

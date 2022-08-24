@@ -1,4 +1,4 @@
-@extends('includes.header')
+@extends('includes.adminHeader')
 @section('content')
 
 
@@ -26,7 +26,7 @@
     <form action="" method="post" enctype="multipart/form-data">
       <input type="hidden" name="func" value="import">
       <input type="hidden" name="type" value="article">
-      <input id="js_importFile" type="file" id="csvFile" name="csvFile" accept=".csv">
+      <input id="js_importFile" type="file" id="csvFile" name="articlesCsv" accept=".csv">
       <p class="errorTxt"></p>
       <br>
       <br>

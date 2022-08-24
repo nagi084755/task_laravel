@@ -13,6 +13,7 @@ class BaseController extends Controller
   //----------------------------------------------------
   public function topPageShow(Request $request)
   {
+    
     $countArticle = Article::countPostedInMonth();
     $countUser = User::countRegistedInMonth();
     return view('topPage', compact('countArticle', 'countUser'));

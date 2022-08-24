@@ -1,11 +1,11 @@
-@extends('includes.header')
+@extends('includes.adminHeader')
 @section('content')
 
 <h1 class="headTtl">管理者ログインページ</h1>
 <form action="{{ route('admin.login') }}" id="js_loginWrap" class="loginWrap" method="post">
   @csrf
   <p>
-      <label for="loginId">ログインID</label>
+      <label for="email">ログインID</label>
       <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
           value="{{ old('email') }}" required autocomplete="email" autofocus>
 

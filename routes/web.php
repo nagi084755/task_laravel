@@ -18,10 +18,9 @@ use App\Http\Controllers\RegisterController;
 
 Auth::routes();
 
-
 Route::get('/', 'BaseController@topPageShow');
 Route::post('/', 'BaseController@topPageShow');
-Route::get('/topPage', 'BaseController@topPageShow')->name('topPage');
+Route::get('/topPage', 'BaseController@topPageShow')->name('home');
 
 
 Route::prefix('provRegister')->group(function () {
@@ -92,7 +91,6 @@ Route::prefix('editComment')->group(function () {
   Route::post('/confirm', 'CommentsController@editConfirm')->name('editComment.conf');
   Route::post('/completion', 'CommentsController@editcompletion')->name('editComment.comp');
 });
-
 
 Route::get('error/{code}', function ($code) {
   abort($code);

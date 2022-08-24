@@ -24,7 +24,7 @@ class RegisterFormRequest extends FormRequest
   public function rules()
   {
     return [
-      'loginId' => 'required|email:strict,dns|max:255|unique:users,login_id',
+      'email' => 'required|email:strict,dns|max:255|unique:users,email',
       'pass' => 'required|alpha_num|min:10|confirmed',
       'name' => 'required|alpha_num|min:8',
     ];
@@ -35,10 +35,10 @@ class RegisterFormRequest extends FormRequest
   public function messages()
     {
         return [
-            'loginId.required' => 'メールアドレスを入力して下さい',
-            'loginId.email' => '正しい形で入力してください',
-            'loginId.max' => ':max 文字以下で入力して下さい',
-            'loginId.unique' => '既に登録されているアドレスです',
+            'email.required' => 'メールアドレスを入力して下さい',
+            'email.email' => '正しい形で入力してください',
+            'email.max' => ':max 文字以下で入力して下さい',
+            'email.unique' => '既に登録されているアドレスです',
 
             'pass.required' => 'パスワードを入力してください',
             'pass.alpha_num' => '英数字で入力してください',

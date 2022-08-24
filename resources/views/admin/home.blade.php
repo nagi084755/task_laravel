@@ -1,4 +1,4 @@
-@extends('includes.header')
+@extends('includes.adminHeader')
 @section('content')
     <div class="adminPageCont">
         <h2 class="adminPageTtl">管理者用ページ</h2>

@@ -10,10 +10,6 @@ use App\Http\Requests\changeNameRequest;
 
 class MemberController extends Controller
 {
-  public function __construct()
-  {
-    $this->middleware('users');
-  }
 
 
   //--------------------------------------------------------------------
