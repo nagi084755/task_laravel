@@ -3,17 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\changePasswordRequest;
 use App\Http\Requests\changeNameRequest;
 
 class MemberController extends Controller
 {
-  public function __construct()
-  {
-      $this->middleware('users');
-  }
 
 
   //--------------------------------------------------------------------
@@ -30,7 +26,7 @@ class MemberController extends Controller
   //--------------------------------------------------------------------
   // 名前変更ページ
   //--------------------------------------------------------------------
-  public function nameChange(Request $request)
+  public function nameChange()
   {
     return view('member.nameChange');
   }
@@ -40,7 +36,7 @@ class MemberController extends Controller
   //--------------------------------------------------------------------
   // パスワード変更ページ
   //--------------------------------------------------------------------
-  public function passwordChange(Request $request)
+  public function passwordChange()
   {
     return view('member.passwordChange');
   }

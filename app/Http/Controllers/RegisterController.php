@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
-use App\User;
+use App\Models\User;
 use App\Models\PreUser;
-use App\Http\Requests\RegisterFormRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Validator;
 
 
 
@@ -24,27 +21,6 @@ class RegisterController extends Controller
   }
 
 
-  // protected function validator(array $data)
-  // {
-  //   return Validator::make($data, [
-  //     'name' => ['required', 'string', 'max:255'],
-  //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-  //     'password' => ['required', 'string', 'min:8', 'confirmed'],
-  //   ]);
-  // }
-
-
-  // protected function create(array $data)
-  //   {
-  //       return User::create([
-  //           'user_id' => Str::random(64),
-  //           'name' => $data['name'],
-  //           'email' => $data['email'],
-  //           'password' => Hash::make($data['password']),
-  //           'role' => 2,
-  //       ]);
-  //   }
-
 
 
   //----------------------------------------------------
@@ -56,6 +32,8 @@ class RegisterController extends Controller
     $preToken = $request->get('token');
     if (PreUser::checkPremember($preEmail, $preToken)) {
       return view('auth.register');
+    } else {
+      return redirect()->route('errorPage', ['code' => 403]);
     }
   }
 

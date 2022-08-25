@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class UserPasswordRule implements Rule

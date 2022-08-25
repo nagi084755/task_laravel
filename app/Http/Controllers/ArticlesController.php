@@ -9,10 +9,11 @@ use App\Models\Comment;
 
 class ArticlesController extends Controller
 {
+
   //----------------------------------------------------
   //　記事一覧ページ
   //----------------------------------------------------
-  public function listShow(Request $request)
+  public function listShow()
   {
     $articleList = Article::getArticleAll();
     return view('article.articleList', compact('articleList'));
@@ -33,16 +34,16 @@ class ArticlesController extends Controller
   //----------------------------------------------------
   //　投稿詳細ページ
   //----------------------------------------------------
-  public function ditaile(Request $request, $id)
+  public function detail(Request $request, int $id)
   {
-    if($request->input('back') === 'back'){
-      return redirect()->route('postArticle.ditaile.post', ['id' => $id])->withInput();
-  }
+    if ($request->input('back') === 'back') {
+      return redirect()->route('postArticle.detail.post', ['id' => $id])->withInput();
+    }
 
     $articleData = Article::getProcess($id);
     $commentData = Comment::getProcess($id);
 
-    return view('article.articleDitaile', compact('articleData', 'commentData', 'id'));
+    return view('article.articleDetail', compact('articleData', 'commentData', 'id'));
   }
 
 
@@ -51,9 +52,9 @@ class ArticlesController extends Controller
   //----------------------------------------------------
   public function post(Request $request)
   {
-    if($request->input('back') === 'back'){
+    if ($request->input('back') === 'back') {
       return redirect('/postArticle/post')->withInput();
-  }
+    }
     return view('post.postPage');
   }
 
@@ -91,11 +92,11 @@ class ArticlesController extends Controller
   {
     $article_id = $request->article_id;
     $confRoute = route('editArticle.conf');
-    
 
-    if($request->input('back') === 'back'){
+
+    if ($request->input('back') === 'back') {
       return redirect()->route('editArticle', ['article_id' => $article_id])->withInput();
-  }
+    }
 
     return view('edit.editPage', compact('article_id', 'confRoute'));
   }

@@ -4,7 +4,7 @@ const provRegister = '/provRegister/input';
 const register = '/register';
 const nameChange = '/mypage/nameChange';
 const passChange = '/mypage/passwordChange';
-const articleDitaile = '/articleDitaile';
+const articleDetail = '/articleDetail';
 const postArticle = '/postArticle';
 const postComment = '/postComment';
 const editArticlePage = '/editArticle/edit';
@@ -41,7 +41,7 @@ window.onload = () => {
       });
     }
     confBtn.addEventListener('click', () => {
-      loginId = inputList[0].value;
+      email = inputList[0].value;
       pass = inputList[1].value;
       userName = inputList[3].value;
     });
@@ -120,7 +120,7 @@ window.onload = () => {
     //----------------------------------------------------
     // 記事詳細ページ
     //----------------------------------------------------
-  } else if (location.pathname.indexOf('/article/ditaile/') !== -1) {
+  } else if (location.pathname.indexOf('/article/detail/') !== -1) {
 
     /***** 《削除ボタンの処理》 *****/
     let frame = document.getElementById('js_fadeFrame');

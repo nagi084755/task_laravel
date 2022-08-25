@@ -18,7 +18,7 @@
             @foreach ($articleList as $article)
                 <div class="articleWrap">
                     <h4 class="articleTtl">
-                        <a class="articleLink" href="{{ route('postArticle.ditaile', ['id' => $article->id]) }}">{{ $article->title }}</a>
+                        <a class="articleLink" href="{{ route('postArticle.detail', ['id' => $article->id]) }}">{{ $article->title }}</a>
                     </h4>
                     <div class="flex">
                         <p class="articleDate">{{ $article->created_at }}</p>

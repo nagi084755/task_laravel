@@ -18,11 +18,9 @@ use App\Http\Controllers\RegisterController;
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/', 'BaseController@topPageShow');
 Route::post('/', 'BaseController@topPageShow');
-Route::get('/topPage', 'BaseController@topPageShow')->name('topPage');
+Route::get('/topPage', 'BaseController@topPageShow')->name('home');
 
 
 Route::prefix('provRegister')->group(function () {
@@ -35,7 +33,9 @@ Route::prefix('provRegister')->group(function () {
 
 Route::prefix('register')->group(function () {
   Route::get('/input', 'RegisterController@input')->name('register.input');
-  Route::post('/input', function () {return view('auth.register');})->name('registerRedirect');
+  Route::post('/input', function () {
+    return view('auth.register');
+  })->name('registerRedirect');
   Route::post('/confirm', 'RegisterController@confirm')->name('register.conf');
   Route::post('/completion', 'RegisterController@completion')->name('register.comp');
 });
@@ -53,12 +53,12 @@ Route::prefix('mypage')->group(function () {
 Route::prefix('article')->group(function () {
   Route::get('/list', 'ArticlesController@listShow')->name('articleList');
   Route::post('/searchList', 'ArticlesController@searchListShow')->name('searchList');
-  Route::get('/ditaile/page_id={id}', 'ArticlesController@ditaile')->name('postArticle.ditaile');
-  Route::post('/ditaile/page_id={id}', 'ArticlesController@ditaile')->name('postArticle.ditaile.post');
+  Route::get('/detail/page_id={id}', 'ArticlesController@detail')->name('postArticle.detail');
+  Route::post('/detail/page_id={id}', 'ArticlesController@detail')->name('postArticle.detail.post');
 });
 
 
-Route::prefix('postArticle')->group(function() {
+Route::prefix('postArticle')->group(function () {
   Route::get('/post', 'ArticlesController@post')->name('postArticle');
   Route::post('/post', 'ArticlesController@post')->name('postArticle.back');
   Route::post('/confirm', 'ArticlesController@confirm')->name('postArticle.conf');
@@ -66,7 +66,7 @@ Route::prefix('postArticle')->group(function() {
 });
 
 
-Route::prefix('editArticle')->group(function() {
+Route::prefix('editArticle')->group(function () {
   Route::get('/edit', 'ArticlesController@edit')->name('editArticle');
   Route::post('/edit', 'ArticlesController@edit')->name('editArticle.back');
   Route::post('/confirm', 'ArticlesController@editConfirm')->name('editArticle.conf');
@@ -79,20 +79,19 @@ Route::post('/deleteComment/completion', 'CommentsController@delete')->name('del
 
 
 
-Route::prefix('comment')->group(function() {
+Route::prefix('comment')->group(function () {
   Route::post('/confirm', 'CommentsController@confirm')->name('postComment.conf');
   Route::post('/completion', 'CommentsController@completion')->name('postComment.comp');
 });
 
 
-Route::prefix('editComment')->group(function() {
+Route::prefix('editComment')->group(function () {
   Route::get('/edit', 'CommentsController@edit')->name('editComment');
   Route::post('/edit', 'CommentsController@edit')->name('editComment.back');
   Route::post('/confirm', 'CommentsController@editConfirm')->name('editComment.conf');
   Route::post('/completion', 'CommentsController@editcompletion')->name('editComment.comp');
 });
 
-
 Route::get('error/{code}', function ($code) {
   abort($code);
-});
+})->name('errorPage');

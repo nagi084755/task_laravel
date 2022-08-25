@@ -1,14 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use App\Models\Article;
+use App\Models\Comment;
 
 class User extends Authenticatable
 {
@@ -20,26 +23,22 @@ class User extends Authenticatable
    * @var array
    */
   protected $fillable = [
-    'user_id',  'name', 'email', 'password', 'role'
+    'id', 'user_id',  'name', 'email', 'password', 'role', 'created_at'
   ];
 
-  /**
-   * The attributes that should be hidden for arrays.
-   *
-   * @var array
-   */
-  protected $hidden = [
-    'password', 'remember_token',
-  ];
 
-  /**
-   * The attributes that should be cast to native types.
-   *
-   * @var array
-   */
-  protected $casts = [
-    'email_verified_at' => 'datetime',
-  ];
+
+  public function articles()
+  {
+    return $this->hasMany(Article::class, 'user_id', 'user_id')->orderBy('created_at', 'desc');
+  }
+
+
+  public function comments()
+  {
+    return $this->hasMany(Comment::class, 'user_id', 'user_id')->orderBy('created_at', 'desc');
+  }
+
 
   //--------------------------------------------------------------------
   // 会員登録処理
@@ -51,7 +50,7 @@ class User extends Authenticatable
       'name' => $data['name'],
       'email' => $data['email'],
       'password' => Hash::make($data['password']),
-      'role' => 2,
+      'role' => 'MEMBER',
     ]);
   }
 
@@ -60,7 +59,7 @@ class User extends Authenticatable
   //--------------------------------------------------------------------
   // 名前を更新する
   //--------------------------------------------------------------------
-  public static function nameUpdate($newName)
+  public static function nameUpdate(string $newName)
   {
     DB::transaction(function () use ($newName) {
       $userId = Auth::user()->user_id;
@@ -75,7 +74,7 @@ class User extends Authenticatable
   //--------------------------------------------------------------------
   // パスワードを更新する
   //--------------------------------------------------------------------
-  public static function passwordUpdate($newPass)
+  public static function passwordUpdate(string $newPass)
   {
     DB::transaction(function () use ($newPass) {
       $userId = Auth::user()->user_id;
@@ -94,7 +93,7 @@ class User extends Authenticatable
     $carbon = Carbon::now();
     $thisMonth = $carbon->month;
     $count = User::whereMonth('created_at', $thisMonth)->count();
-    
+
     return $count;
   }
 }

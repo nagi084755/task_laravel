@@ -263,28 +263,28 @@ a {
 
 
 /*******  投稿詳細画面  *******/
-.articleDitaile_Wrap {
+.articleDetail_Wrap {
   max-width: 70%;
   margin: 0 auto 100px auto;
 }
 
 
-.articleDitaile_head {
+.articleDetail_head {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
 
-.articleDitaile_head p {
+.articleDetail_head p {
   margin: 0;
 }
 
-.articleDitaile_txt {
+.articleDetail_txt {
   width: 80%;
   margin: 0 auto;
 }
 
-.articleDitaile_Ttl {
+.articleDetail_Ttl {
   margin-left: 30px;
 }
 
@@ -318,7 +318,7 @@ a {
 }
 
 @media screen and (max-width: 750px) {
-  .articleDitaile_head {
+  .articleDetail_head {
     display: block;
     text-align: center;
     margin-bottom: 20px;

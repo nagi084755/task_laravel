@@ -8,13 +8,13 @@
     <form class="signupForm" action="" method="post">
         @csrf
         <div class="item">
-            <label for="loginId">ログインID（email）</label>
+            <label for="email">ログインID（email）</label>
             <br>
-            @error('loginId')
+            @error('email')
                 <p class="errorTxt">{{ $message }}</p>
             @enderror
             <p class="errorTxt"></p>
-            <input type="text" name="loginId" id="loginId" class="input">
+            <input type="text" name="email" id="email" class="input">
         </div>
 
         <div class="item">

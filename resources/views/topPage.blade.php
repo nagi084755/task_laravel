@@ -4,7 +4,7 @@
     <form action="{{ route('login') }}" id="js_loginWrap" class="loginWrap" method="post">
         @csrf
         <p>
-            <label for="loginId">ログインID</label>
+            <label for="email">ログインID</label>
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
                 value="{{ old('email') }}" required autocomplete="email" autofocus>
 
@@ -31,6 +31,7 @@
     </form>
     
     <p class="el_center"><a class="entryBtn" href="{{ route('provRegister.input') }}">新規会員登録はこちらから</a></p>
+    <p class="el_center"><a class="entryBtn" href="{{ route('admin.login') }}">管理者ページ</a></p>
     <div class="numWrap">
         <p>今月の会員登録数：{{ $countUser }}</p>
         <p>今月の累計投稿数：{{ $countArticle }}</p>

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\AdminService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,8 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
-    }
+      $this->app->bind('App\Services\AdminService', AdminService::class);
+;    }
 
     /**
      * Bootstrap any application services.

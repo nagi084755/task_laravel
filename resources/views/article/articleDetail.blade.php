@@ -2,17 +2,16 @@
 @section('content')
     <div class="container">
 
-        @foreach ($articleData as $data)
-            <div class="articleDitaile_Wrap">
-                <div class="articleDitaile_head">
-                    <p>{{ $data->created_at }}</p>
-                    <h2 class="articleDitaile_Ttl">{{ $data->title }}</h2>
-                    <p>投稿者:{{ $data->name }}</p>
+            <div class="articledetail_Wrap">
+                <div class="articledetail_head">
+                    <p>{{ $articleData->created_at }}</p>
+                    <h2 class="articledetail_Ttl">{{ $articleData->title }}</h2>
+                    <p>投稿者:{{ $articleData->user->name }}</p>
                 </div>
 
 
                 <!-------- 【記事編集・削除ボタン】 -------->
-                @if (Auth::user()->name === $data->name)
+                @if (Auth::user()->name === $articleData->user->name)
                     <div class="personalBtnWrap">
                         <form action="{{ route('editArticle') }}" method="post">
                             @csrf
@@ -27,11 +26,11 @@
 
 
                 <!-------- 【記事内容】 -------->
-                <div class="articleDitaile_txt">
-                    <p>{{ $data->content }}</p>
+                <div class="articledetail_txt">
+                    <p>{{ $articleData->content }}</p>
                 </div>
             </div>
-        @endforeach
+        
         <!------------------------------>
 
 
@@ -59,13 +58,13 @@
 
             <div class="commentAttr">
                 <p class="commentBy">
-                    <span class="commentUser">{{ $data->name }}</span>
+                    <span class="commentUser">{{ $data->user->name }}</span>
                     <span class="commentDate">{{ $data->created_at }}</span>
                 </p>
 
 
                 <!-------- 【コメント編集・削除ボタン】 -------->
-                @if (Auth::user()->name === $data->name)
+                @if (Auth::user()->name === $data->user->name)
                     <form action="{{ route('editComment') }}" method="post">
                         @csrf
                         <button type="submit" class="editBtn" name="comment" value="comment">編集</button>

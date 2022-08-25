@@ -28,7 +28,7 @@
 
             <div class="btnWrap">
                 <button type="submit" name="back"
-                    formaction='{{ route('postArticle.ditaile.post', ['id' => $article_id]) }}'>キャンセル</button>
+                    formaction='{{ route('postArticle.detail.post', ['id' => $article_id]) }}'>キャンセル</button>
                 <button id="js_confBtn" type="submit" name="" value=""
                     formaction="{{ $confRoute }}">確認する</button>
             </div>

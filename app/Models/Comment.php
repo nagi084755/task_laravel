@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use  Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
+use App\Models\Article;
 
 class Comment extends Model
 {
@@ -15,11 +17,22 @@ class Comment extends Model
   protected $fillable = ['id', 'user_id', 'article_id', 'content', 'created_at', 'updated_at', 'deleted_at'];
 
 
+  public function user() {
+    return $this->belongsTo(User::class, 'user_id', 'user_id');
+  }
+  
+
+
+  public function article() {
+    return $this->belongsTo(Article::class, 'user_id', 'user_id')->orderBy('created_at', 'desc');
+  }
+
+
 
   //--------------------------------------------------------------------
   // コメントデータをインサート
   //--------------------------------------------------------------------
-  public static function postProcess($dataList)
+  public static function postProcess(array $dataList)
   {
     DB::transaction(function () use ($dataList) {
       $user_id = Auth::user()->user_id;
@@ -36,13 +49,9 @@ class Comment extends Model
   //----------------------------------------------------
   // コメントを取得
   //----------------------------------------------------
-  public static function getProcess($article_id)
+  public static function getProcess(int $article_id)
   {
-    $commentData = Comment::select('comments.id','comments.user_id', 'comments.content', 'comments.created_at', 'users.name')
-      ->join('users', 'comments.user_id', '=', 'users.user_id')
-      ->whereNull('comments.deleted_at')
-      ->where('comments.article_id', '=', $article_id)->latest()
-      ->get();
+    $commentData = Comment::with('user')->where('article_id', '=', $article_id)->get();   
     return $commentData;
   }
 
@@ -51,7 +60,7 @@ class Comment extends Model
   //--------------------------------------------------------------------
   // コメントを更新
   //--------------------------------------------------------------------
-  public static function updateProcess($dataList)
+  public static function updateProcess(array $dataList)
   {
     DB::transaction(function () use ($dataList) {
       Comment::where('id', '=', $dataList['comment_id'])
@@ -67,7 +76,7 @@ class Comment extends Model
   //--------------------------------------------------------------------
   // コメントを削除
   //--------------------------------------------------------------------
-  public static function deleteProcess($dataList)
+  public static function deleteProcess(array $dataList)
   {
     DB::transaction(function () use ($dataList) {
       Comment::where('id', '=', $dataList['comment_id'])
